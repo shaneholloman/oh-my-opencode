@@ -168,7 +168,17 @@ If you don't want all this, as mentioned, you can just pick and choose specific 
 
 ### For Humans
 
-Let the LLM Agent handle the grunt work. Paste this into a fresh opencode session:
+Run the interactive installer:
+
+```bash
+bunx oh-my-opencode install
+```
+
+Follow the prompts to configure your Claude, ChatGPT, and Gemini subscriptions. After installation, authenticate your providers as instructed.
+
+**Alternative: Let an LLM Agent do it**
+
+Paste this into a fresh opencode session:
 ```
 Install and configure by following the instructions here https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/refs/heads/master/README.md
 ```
@@ -182,80 +192,25 @@ If you're an LLM Agent helping set up oh-my-opencode, Welcome! You'll now help y
 
 follow these steps:
 
-### Step 0: Ask user about the setup.
+### Step 0: Ask user about subscriptions
 
-Since OpenCode supports various models, and our plugin suggests various frontier LLMs, you must ask user the following questions.
+Ask the user these 3 questions to determine CLI options:
 
-**IMPORTANT**: Track which providers the user has. Only use `anthropic/claude-opus-4-5` as fallback when the user confirmed they have Claude. If they don't have Claude, use `opencode/big-pickle` as fallback instead.
+1. **Do you have a Claude Pro/Max Subscription?**
+   - If **yes**: **Are you on max20 (20x mode)?**
+     - **max20** → `--claude=max20`
+     - **not max20** → `--claude=yes`
+   - If **no** → `--claude=no`
 
-1. **Do you have a Claude Pro/Max Subscription?** Otherwise, we'll use 'opencode/big-pickle' (known for GLM 4.6) as a main orchestrator model (not recommended)
-   - If user said **yes**, ask follow-up: **Are you on max20 (20x mode)?**
-     - If **yes (max20)**: Add ToDo: "Setup user Claude Pro/Max Auth" — full Claude Sonnet 4.5 for librarian. **Remember: Claude is available for fallbacks.**
-     - If **no (not max20)**: Add ToDo: "Setup user Claude Pro/Max Auth", then merge the following to `~/.config/opencode/oh-my-opencode.json`. **Remember: Claude is available for fallbacks.**
-       ```json
-       {
-         "agents": {
-           "librarian": { "model": "opencode/big-pickle" }
-         }
-       }
-       ```
-   - If user said **no** (no Claude subscription), merge the following to `~/.config/opencode/oh-my-opencode.json`. **Remember: Claude is NOT available — all fallbacks must use `opencode/big-pickle`.**
-     ```json
-     {
-       "agents": {
-         "Sisyphus": { "model": "opencode/big-pickle" },
-         "librarian": { "model": "opencode/big-pickle" }
-       }
-     }
-     ```
+2. **Do you have a ChatGPT Subscription?**
+   - If **yes** → `--chatgpt=yes`
+   - If **no** → `--chatgpt=no`
 
-2. **Do you have a ChatGPT Subscription?** Otherwise, we'll use a fallback model for oracle agent.
-   - If user said **yes**, add ToDo: "Setup user ChatGPT Auth"
-   - If user said **no**:
-     - **If Claude is available**: merge the following to `oh-my-opencode.json`:
-       ```json
-       {
-         "agents": {
-           "oracle": { "model": "anthropic/claude-opus-4-5" }
-         }
-       }
-       ```
-     - **If Claude is NOT available**: merge the following to `oh-my-opencode.json`:
-       ```json
-       {
-         "agents": {
-           "oracle": { "model": "opencode/big-pickle" }
-         }
-       }
-       ```
+3. **Will you integrate Gemini models?**
+   - If **yes** → `--gemini=yes`
+   - If **no** → `--gemini=no`
 
-3. **Will you integrate Gemini models?** Otherwise, you cannot enjoy the beautiful design.
-   - If user said **yes**, add ToDo: "Setup Google OAuth"
-   - If user said **no**:
-     - **If Claude is available**: merge the following to `oh-my-opencode.json`:
-       ```json
-       {
-         "agents": {
-           "frontend-ui-ux-engineer": { "model": "anthropic/claude-opus-4-5" },
-           "document-writer": { "model": "anthropic/claude-opus-4-5" },
-           "multimodal-looker": { "model": "anthropic/claude-opus-4-5" }
-         }
-       }
-       ```
-     - **If Claude is NOT available**: merge the following to `oh-my-opencode.json`:
-       ```json
-       {
-         "agents": {
-           "frontend-ui-ux-engineer": { "model": "opencode/big-pickle" },
-           "document-writer": { "model": "opencode/big-pickle" },
-           "multimodal-looker": { "model": "opencode/big-pickle" }
-         }
-       }
-       ```
-
-### Step 1: Install OpenCode, if not
-
-Run following command to verify OpenCode Installation:
+### Step 1: Install OpenCode (if not installed)
 
 ```bash
 if command -v opencode &> /dev/null; then
@@ -269,37 +224,29 @@ fi
 If OpenCode isn't installed, check the [OpenCode Installation Guide](https://opencode.ai/docs).
 Spawn a subagent to handle installation and report back - to save context.
 
-### Step 2: Configure oh-my-opencode Plugin
+### Step 2: Run the installer
 
-#### JSONC
-- If `~/.config/opencode/opencode.jsonc` exists, work in there to add `oh-my-opencode` plugin
-
-#### JSON
-- If no opencode.jsonc exists, run following command to create and register it.
+Based on user's answers, run the CLI installer with appropriate flags:
 
 ```bash
-mkdir -p ~/.config/opencode
-
-if [ -f ~/.config/opencode/opencode.json ]; then
-    # Existing config: add plugin using jq or python
-    if command -v jq &> /dev/null; then
-        jq '.plugin = ((.plugin // []) + ["oh-my-opencode"] | unique)' \
-            ~/.config/opencode/opencode.json > /tmp/oc.json && \
-            mv /tmp/oc.json ~/.config/opencode/opencode.json
-    else
-        echo "Please add \"oh-my-opencode\" to the plugin array in ~/.config/opencode/opencode.json"
-    fi
-else
-    # Create new config
-    echo '{"plugin":["oh-my-opencode"]}' > ~/.config/opencode/opencode.json
-fi
+bunx oh-my-opencode install --no-tui --claude=<yes|no|max20> --chatgpt=<yes|no> --gemini=<yes|no>
 ```
+
+**Examples:**
+- User has all subscriptions with max20: `bunx oh-my-opencode install --no-tui --claude=max20 --chatgpt=yes --gemini=yes`
+- User has only Claude (no max20): `bunx oh-my-opencode install --no-tui --claude=yes --chatgpt=no --gemini=no`
+- User has no subscriptions: `bunx oh-my-opencode install --no-tui --claude=no --chatgpt=no --gemini=no`
+
+The CLI will:
+- Register the plugin in `opencode.json`
+- Configure agent models based on subscription flags
+- Show which auth steps are needed
 
 ### Step 3: Verify Setup
 
 ```bash
-opencode --version  # Should be 1.0.132 or higher
-cat ~/.config/opencode/opencode.json  # Should contain "oh-my-opencode" in plugin array, or maybe check jsonc
+opencode --version  # Should be 1.0.150 or higher
+cat ~/.config/opencode/opencode.json  # Should contain "oh-my-opencode" in plugin array
 ```
 
 ### Step 4: Configure Authentication
@@ -491,8 +438,8 @@ To remove oh-my-opencode:
 - **oracle** (`openai/gpt-5.2`): Architecture, code review, strategy. Uses GPT-5.2 for its stellar logical reasoning and deep analysis. Inspired by AmpCode.
 - **librarian** (`anthropic/claude-sonnet-4-5`): Multi-repo analysis, doc lookup, implementation examples. Uses Claude Sonnet 4.5 for deep codebase understanding and GitHub research with evidence-based answers. Inspired by AmpCode.
 - **explore** (`opencode/grok-code`): Fast codebase exploration and pattern matching. Claude Code uses Haiku; we use Grok—it's free, blazing fast, and plenty smart for file traversal. Inspired by Claude Code.
-- **frontend-ui-ux-engineer** (`google/gemini-3-pro-preview`): A designer turned developer. Builds gorgeous UIs. Gemini excels at creative, beautiful UI code.
-- **document-writer** (`google/gemini-3-pro-preview`): Technical writing expert. Gemini is a wordsmith—writes prose that flows.
+- **frontend-ui-ux-engineer** (`google/gemini-3-pro-high`): A designer turned developer. Builds gorgeous UIs. Gemini excels at creative, beautiful UI code.
+- **document-writer** (`google/gemini-3-flash`): Technical writing expert. Gemini is a wordsmith—writes prose that flows.
 - **multimodal-looker** (`google/gemini-3-flash`): Visual content specialist. Analyzes PDFs, images, diagrams to extract information.
 
 The main agent invokes these automatically, but you can call them explicitly:
@@ -961,6 +908,29 @@ I have no affiliation with any project or model mentioned here. This is purely p
     - Fun fact: That PR was discovered and fixed thanks to OhMyOpenCode's Librarian, Explore, and Oracle setup.
 
 *Special thanks to [@junhoyeo](https://github.com/junhoyeo) for this amazing hero image.*
+
+## Reviews
+
+> "If Claude Code does in 7 days what human does in 3 months, Sisyphus does in 1 hour"
+> -- B, Quant Researcher
+
+> "Knocked out 8000 eslint warnings with Oh My Opencode, just in a day"
+> -- Jacob Ferrari, from [X](https://x.com/jacobferrari_/status/2003258761952289061)
+
+> "Hire @yeon_gyu_kim if you can convince him, this dude has revolutionized opencode."
+> -- [to Sam Altman's post](https://x.com/mysticaltech/status/2001858758608376079)
+
+> "You guys should pull this into core and recruit him. Seriously. It's really, really, really good."
+> -- Henning Kilset, from X
+
+> "ok yeah holy shit @androolloyd this thing is legit oh my opencode is sick"
+> -- z80.eth, from [X](https://x.com/0xz80/status/2001815226505924791)
+
+> "use oh-my-opencode, you will never go back"
+> -- [d0t3ch](https://x.com/d0t3ch/status/2001685618200580503)
+
+> "Oh My Opencode is king of the hill and has no contenders"
+> -- [RyanOnThePath](https://x.com/RyanOnThePath/status/2001438321252118548)
 
 ## Loved by professionals at
 
