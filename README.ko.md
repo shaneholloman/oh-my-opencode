@@ -1,4 +1,13 @@
-공지: oh-my-opencode 관련 소식은 제 X 계정에서 올렸었는데, 억울하게 정지당해서 [@justsisyphus](https://x.com/justsisyphus)가 대신 관리하고 있습니다.
+> [!NOTE]
+>
+> *"저는 에이전트가 생성한 코드와 인간이 작성한 코드를 구분할 수 없으면서도, 훨씬 더 많은 것을 달성할 수 있는 세상을 만들어 소프트웨어 혁명을 일으키고자 합니다. 저는 이 여정에 개인적인 시간, 열정, 그리고 자금을 쏟아부었고, 앞으로도 계속 그렇게 할 것입니다."*
+>
+> 함께해주세요!
+>
+> | [<img alt="Discord link" src="https://img.shields.io/discord/1452487457085063218?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=flat-square" width="156px" />](https://discord.gg/PWpXmbhF) | [Discord 커뮤니티](https://discord.gg/PWpXmbhF)에서 기여자들과 `oh-my-opencode` 사용자들을 만나보세요. |
+> | :-----| :----- |
+> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justsisyphus-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justsisyphus) | `oh-my-opencode` 관련 소식은 제 X 계정에서 올렸었는데, 억울하게 정지당해서 <br />[@justsisyphus](https://x.com/justsisyphus)가 대신 소식을 전하고 있습니다. |
+> | [<img alt="Sponsor" src="https://img.shields.io/badge/Sponsor-❤-ff69b4?style=flat-square&logo=github-sponsors&labelColor=black" width="156px" />](https://github.com/sponsors/code-yeongyu) | [스폰서가 되어](https://github.com/sponsors/code-yeongyu) `oh-my-opencode` 개발을 응원해주세요. 여러분의 후원이 이 프로젝트를 계속 성장시킵니다. |
 
 <!-- <CENTERED SECTION FOR GITHUB DISPLAY> -->
 
@@ -20,13 +29,31 @@
 [![GitHub Forks](https://img.shields.io/github/forks/code-yeongyu/oh-my-opencode?color=8ae8ff&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/network/members)
 [![GitHub Stars](https://img.shields.io/github/stars/code-yeongyu/oh-my-opencode?color=ffcb47&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/stargazers)
 [![GitHub Issues](https://img.shields.io/github/issues/code-yeongyu/oh-my-opencode?color=ff80eb&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/issues)
-[![License](https://img.shields.io/badge/license-MIT-white?labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-SUL--1.0-white?labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/blob/master/LICENSE.md)
 
 [English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md) | [简体中文](README.zh-cn.md)
 
 </div>
 
 <!-- </CENTERED SECTION FOR GITHUB DISPLAY> -->
+
+## 사용자 후기
+
+> "인간이 3달 동안 할 일을 claude code 가 7일만에 해준다면, 시지푸스는 1시간만에 해준다. 작업이 완료되기 전까지 그저 잘 작동한다. It is a discipline agent." — B, Quant Researcher
+
+> "Oh My Opencode를 사용해서, 단 하루만에 8000개의 eslint 경고를 해결했습니다" — [Jacob Ferrari](https://x.com/jacobferrari_/status/2003258761952289061)
+
+> "이걸 코어에 넣고 그를 채용해야 합니다. 진심으로요. 이건 정말, 정말, 정말 좋습니다." — Henning Kilset
+
+> "@yeon_gyu_kim 을 설득할 수 있다면 고용하세요, 이 사람은 opencode를 혁신했습니다." — [mysticaltech](https://x.com/mysticaltech/status/2001858758608376079)
+
+> "와 미쳤다 @androolloyd 이건 진짜다 oh my opencode 개쩐다" — [z80.eth](https://x.com/0xz80/status/2001815226505924791)
+
+> "oh-my-opencode를 쓰세요, 절대 돌아갈 수 없을 겁니다" — [d0t3ch](https://x.com/d0t3ch/status/2001685618200580503)
+
+> "Oh My Opencode는 독보적입니다, 경쟁자가 없습니다" — [RyanOnThePath](https://x.com/RyanOnThePath/status/2001438321252118548)
+
+---
 
 ## 목차
 
@@ -836,29 +863,6 @@ OpenCode 를 사용하여 이 프로젝트의 99% 를 작성했습니다. 기능
     - TMI: PR 도 OhMyOpenCode 의 셋업의 Librarian, Explore, Oracle 을 활용하여 우연히 발견하고 해결되었습니다.
 
 *멋진 히어로 이미지를 만들어주신 히어로 [@junhoyeo](https://github.com/junhoyeo) 께 감사드립니다*
-
-## 사용자 후기
-
-> "인간이 3달 동안 할 일을 claude code 가 7일만에 해준다면, 시지푸스는 1시간만에 해준다"
-> -- B, Quant Researcher
-
-> "Oh My Opencode를 사용해서, 단 하루만에 8000개의 eslint 경고를 해결했습니다"
-> -- Jacob Ferrari, from [X](https://x.com/jacobferrari_/status/2003258761952289061)
-
-> "@yeon_gyu_kim 을 설득할 수 있다면 고용하세요, 이 사람은 opencode를 혁신했습니다."
-> -- [to Sam Altman's post](https://x.com/mysticaltech/status/2001858758608376079)
-
-> "이걸 코어에 넣고 그를 채용해야 합니다. 진심으로요. 이건 정말, 정말, 정말 좋습니다."
-> -- Henning Kilset, from X
-
-> "와 미쳤다 @androolloyd 이건 진짜다 oh my opencode 개쩐다"
-> -- z80.eth, from [X](https://x.com/0xz80/status/2001815226505924791)
-
-> "oh-my-opencode를 쓰세요, 절대 돌아갈 수 없을 겁니다"
-> -- [d0t3ch](https://x.com/d0t3ch/status/2001685618200580503)
-
-> "Oh My Opencode는 독보적입니다, 경쟁자가 없습니다"
-> -- [RyanOnThePath](https://x.com/RyanOnThePath/status/2001438321252118548)
 
 ## 다음 기업의 능력있는 개인들이 사용하고 있습니다
 

@@ -1,4 +1,13 @@
-お知らせ: oh-my-opencodeに関するニュースは私のXアカウントで投稿していましたが、無実の罪で凍結されたため、[@justsisyphus](https://x.com/justsisyphus)が代わりに管理しています。
+> [!NOTE]
+>
+> *「私はエージェントが生成したコードと人間が書いたコードを区別できない、しかしはるかに多くのことを達成できる世界を作り、ソフトウェア革命を起こすことを目指しています。私はこの旅に個人的な時間、情熱、そして資金を注ぎ込んできましたし、これからもそうし続けます。」*
+>
+> 一緒に歩みましょう！
+>
+> | [<img alt="Discord link" src="https://img.shields.io/discord/1452487457085063218?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=flat-square" width="156px" />](https://discord.gg/PWpXmbhF) | [Discordコミュニティ](https://discord.gg/PWpXmbhF)に参加して、コントリビューターや`oh-my-opencode`仲間とつながりましょう。 |
+> | :-----| :----- |
+> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justsisyphus-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justsisyphus) | `oh-my-opencode`に関するニュースは私のXアカウントで投稿していましたが、無実の罪で凍結されたため、<br />[@justsisyphus](https://x.com/justsisyphus)が代わりに更新を投稿しています。 |
+> | [<img alt="Sponsor" src="https://img.shields.io/badge/Sponsor-❤-ff69b4?style=flat-square&logo=github-sponsors&labelColor=black" width="156px" />](https://github.com/sponsors/code-yeongyu) | [スポンサーになって](https://github.com/sponsors/code-yeongyu) `oh-my-opencode` の開発を応援してください。皆さまのご支援がこのプロジェクトを成長させます。 |
 
 <!-- <CENTERED SECTION FOR GITHUB DISPLAY> -->
 
@@ -23,13 +32,31 @@
 [![GitHub Forks](https://img.shields.io/github/forks/code-yeongyu/oh-my-opencode?color=8ae8ff&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/network/members)
 [![GitHub Stars](https://img.shields.io/github/stars/code-yeongyu/oh-my-opencode?color=ffcb47&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/stargazers)
 [![GitHub Issues](https://img.shields.io/github/issues/code-yeongyu/oh-my-opencode?color=ff80eb&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/issues)
-[![License](https://img.shields.io/badge/license-MIT-white?labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-SUL--1.0-white?labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/blob/master/LICENSE.md)
 
 [English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md) | [简体中文](README.zh-cn.md)
 
 </div>
 
 <!-- </CENTERED SECTION FOR GITHUB DISPLAY> -->
+
+## ユーザーレビュー
+
+> "人間が3ヶ月かかる仕事をClaude Codeが7日でやるなら、Sisyphusは1時間でやります。タスクが完了するまでただ動き続ける。It is a discipline agent." — B, Quant Researcher
+
+> "Oh My Opencodeを使って、たった1日で8000個のeslint警告を解消しました" — [Jacob Ferrari](https://x.com/jacobferrari_/status/2003258761952289061)
+
+> "これをコアに取り入れて彼を採用すべきです。マジで。本当に、本当に、本当に良いです" — Henning Kilset
+
+> "@yeon_gyu_kimを説得できるなら雇うべきです。彼はopencodeに革命を起こしました" — [mysticaltech](https://x.com/mysticaltech/status/2001858758608376079)
+
+> "やばい、これマジで本物だ @androolloyd oh my opencode 最高すぎる" — [z80.eth](https://x.com/0xz80/status/2001815226505924791)
+
+> "oh-my-opencodeを使ってください、もう戻れませんよ" — [d0t3ch](https://x.com/d0t3ch/status/2001685618200580503)
+
+> "Oh My Opencodeは頂点に立っています、敵はいません" — [RyanOnThePath](https://x.com/RyanOnThePath/status/2001438321252118548)
+
+---
 
 ## 目次
 
@@ -842,29 +869,6 @@ OpenCode が Debian / ArchLinux だとしたら、Oh My OpenCode は Ubuntu / [O
     - 余談：この PR も、OhMyOpenCode の Librarian、Explore、Oracle セットアップを活用して偶然発見され、修正されました。
 
 *素晴らしいヒーロー画像を作成してくれた [@junhoyeo](https://github.com/junhoyeo) に感謝します*
-
-## ユーザーレビュー
-
-> "人間が3ヶ月かかる仕事をClaude Codeが7日でやるなら、Sisyphusは1時間でやります"
-> -- B, Quant Researcher
-
-> "Oh My Opencodeを使って、たった1日で8000個のeslint警告を解消しました"
-> -- Jacob Ferrari, from [X](https://x.com/jacobferrari_/status/2003258761952289061)
-
-> "@yeon_gyu_kimを説得できるなら雇うべきです。彼はopencodeに革命を起こしました"
-> -- [Sam Altmanの投稿へ](https://x.com/mysticaltech/status/2001858758608376079)
-
-> "これをコアに取り入れて彼を採用すべきです。マジで。本当に、本当に、本当に良いです"
-> -- Henning Kilset, from X
-
-> "やばい、これマジで本物だ @androolloyd oh my opencode 最高すぎる"
-> -- z80.eth, from [X](https://x.com/0xz80/status/2001815226505924791)
-
-> "oh-my-opencodeを使ってください、もう戻れませんよ"
-> -- [d0t3ch](https://x.com/d0t3ch/status/2001685618200580503)
-
-> "Oh My Opencodeは頂点に立っています、敵はいません"
-> -- [RyanOnThePath](https://x.com/RyanOnThePath/status/2001438321252118548)
 
 ## こちらの企業の専門家にご愛用いただいています
 

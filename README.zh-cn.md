@@ -1,4 +1,13 @@
-公告：oh-my-opencode 的相关消息之前在我的 X 账号发布，但由于账号被无辜封禁，现在由 [@justsisyphus](https://x.com/justsisyphus) 代为管理更新。
+> [!NOTE]
+>
+> *"我致力于引发一场软件革命，创造一个AI生成的代码与人类代码无法区分、却能实现更多的世界。我已经在这段旅程中投入了个人时间、热情和资金，并将继续这样做。"*
+>
+> 与我们同行！
+>
+> | [<img alt="Discord link" src="https://img.shields.io/discord/1452487457085063218?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=flat-square" width="156px" />](https://discord.gg/PWpXmbhF) | 加入我们的 [Discord 社区](https://discord.gg/PWpXmbhF)，和贡献者们、`oh-my-opencode` 用户们一起交流。 |
+> | :-----| :----- |
+> | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justsisyphus-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justsisyphus) | `oh-my-opencode` 的消息之前在我的 X 账号发，但账号被无辜封了，<br />现在 [@justsisyphus](https://x.com/justsisyphus) 替我发更新。 |
+> | [<img alt="Sponsor" src="https://img.shields.io/badge/Sponsor-❤-ff69b4?style=flat-square&logo=github-sponsors&labelColor=black" width="156px" />](https://github.com/sponsors/code-yeongyu) | [成为赞助者](https://github.com/sponsors/code-yeongyu)，支持 `oh-my-opencode` 的开发。您的支持让这个项目持续成长。 |
 
 <!-- <CENTERED SECTION FOR GITHUB DISPLAY> -->
 
@@ -25,13 +34,31 @@
 [![GitHub Forks](https://img.shields.io/github/forks/code-yeongyu/oh-my-opencode?color=8ae8ff&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/network/members)
 [![GitHub Stars](https://img.shields.io/github/stars/code-yeongyu/oh-my-opencode?color=ffcb47&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/stargazers)
 [![GitHub Issues](https://img.shields.io/github/issues/code-yeongyu/oh-my-opencode?color=ff80eb&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/issues)
-[![License](https://img.shields.io/badge/license-MIT-white?labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-SUL--1.0-white?labelColor=black&style=flat-square)](https://github.com/code-yeongyu/oh-my-opencode/blob/master/LICENSE.md)
 
 [English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md) | [简体中文](README.zh-cn.md)
 
 </div>
 
 <!-- </CENTERED SECTION FOR GITHUB DISPLAY> -->
+
+## 用户评价
+
+> "如果 Claude Code 能在 7 天内完成人类 3 个月的工作，那么 Sisyphus 只需要 1 小时。任务完成之前它就是一直干。It is a discipline agent." — B, Quant Researcher
+
+> "只用了一天，就用 Oh My Opencode 干掉了 8000 个 eslint 警告" — [Jacob Ferrari](https://x.com/jacobferrari_/status/2003258761952289061)
+
+> "你们应该把它合并到核心代码里并聘用他。认真的。这真的、真的、真的很好" — Henning Kilset
+
+> "如果你能说服 @yeon_gyu_kim，就雇佣他吧，这家伙彻底改变了 opencode" — [mysticaltech](https://x.com/mysticaltech/status/2001858758608376079)
+
+> "哇靠 @androolloyd 这玩意儿是真的，oh my opencode 太强了" — [z80.eth](https://x.com/0xz80/status/2001815226505924791)
+
+> "用了 oh-my-opencode，你就回不去了" — [d0t3ch](https://x.com/d0t3ch/status/2001685618200580503)
+
+> "Oh My Opencode 独孤求败，没有对手" — [RyanOnThePath](https://x.com/RyanOnThePath/status/2001438321252118548)
+
+---
 
 ## 目录
 
@@ -841,29 +868,6 @@ Oh My OpenCode 送你重构工具（重命名、代码操作）。
     - 花絮：这 bug 也是靠 OhMyOpenCode 的 Librarian、Explore、Oracle 配合发现并修好的。
 
 *感谢 [@junhoyeo](https://github.com/junhoyeo) 制作了这张超帅的 hero 图。*
-
-## 用户评价
-
-> "如果 Claude Code 能在 7 天内完成人类 3 个月的工作，那么 Sisyphus 只需要 1 小时"
-> -- B, Quant Researcher
-
-> "只用了一天，就用 Oh My Opencode 干掉了 8000 个 eslint 警告"
-> -- Jacob Ferrari, from [X](https://x.com/jacobferrari_/status/2003258761952289061)
-
-> "如果你能说服 @yeon_gyu_kim，就雇佣他吧，这家伙彻底彻底改变了 opencode"
-> -- [回复 Sam Altman 的帖子](https://x.com/mysticaltech/status/2001858758608376079)
-
-> "你们应该把它合并到核心代码里并聘用他。认真的。这真的、真的、真的很好"
-> -- Henning Kilset, from X
-
-> "哇靠 @androolloyd 这玩意儿是真的，oh my opencode 太强了"
-> -- z80.eth, from [X](https://x.com/0xz80/status/2001815226505924791)
-
-> "用了 oh-my-opencode，你就回不去了"
-> -- [d0t3ch](https://x.com/d0t3ch/status/2001685618200580503)
-
-> "Oh My Opencode 独孤求败，没有对手"
-> -- [RyanOnThePath](https://x.com/RyanOnThePath/status/2001438321252118548)
 
 ## 以下企业的专业人士都在用
 
