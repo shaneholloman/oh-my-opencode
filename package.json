@@ -1,6 +1,6 @@
 {
   "name": "oh-my-opencode",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "OpenCode plugin - custom agents (oracle, librarian) and enhanced features",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -56,6 +56,7 @@
     "@code-yeongyu/comment-checker": "^0.6.0",
     "@openauthjs/openauth": "^0.4.3",
     "@opencode-ai/plugin": "^1.0.162",
+    "@opencode-ai/sdk": "^1.0.162",
     "commander": "^14.0.2",
     "hono": "^4.10.4",
     "picocolors": "^1.1.1",

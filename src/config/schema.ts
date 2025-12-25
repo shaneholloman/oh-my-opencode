@@ -30,6 +30,7 @@ export const OverridableAgentNameSchema = z.enum([
   "build",
   "plan",
   "Sisyphus",
+  "Builder-Sisyphus",
   "Planner-Sisyphus",
   "oracle",
   "librarian",
@@ -86,6 +87,7 @@ export const AgentOverridesSchema = z.object({
   build: AgentOverrideConfigSchema.optional(),
   plan: AgentOverrideConfigSchema.optional(),
   Sisyphus: AgentOverrideConfigSchema.optional(),
+  "Builder-Sisyphus": AgentOverrideConfigSchema.optional(),
   "Planner-Sisyphus": AgentOverrideConfigSchema.optional(),
   oracle: AgentOverrideConfigSchema.optional(),
   librarian: AgentOverrideConfigSchema.optional(),
@@ -105,6 +107,10 @@ export const ClaudeCodeConfigSchema = z.object({
 
 export const SisyphusAgentConfigSchema = z.object({
   disabled: z.boolean().optional(),
+  builder_enabled: z.boolean().optional(),
+  planner_enabled: z.boolean().optional(),
+  replace_build: z.boolean().optional(),
+  replace_plan: z.boolean().optional(),
 })
 
 export const ExperimentalConfigSchema = z.object({
@@ -114,8 +120,8 @@ export const ExperimentalConfigSchema = z.object({
   preemptive_compaction: z.boolean().optional(),
   /** Threshold percentage to trigger preemptive compaction (default: 0.80) */
   preemptive_compaction_threshold: z.number().min(0.5).max(0.95).optional(),
-  /** Truncate all tool outputs, not just whitelisted tools (default: false) */
-  truncate_all_tool_outputs: z.boolean().optional(),
+  /** Truncate all tool outputs, not just whitelisted tools (default: true) */
+  truncate_all_tool_outputs: z.boolean().default(true),
 })
 
 export const OhMyOpenCodeConfigSchema = z.object({
