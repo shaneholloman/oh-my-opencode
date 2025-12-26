@@ -5,7 +5,7 @@ import { checkCompletionConditions } from "./completion"
 import { createEventState, processEvents } from "./events"
 
 const POLL_INTERVAL_MS = 500
-const DEFAULT_TIMEOUT_MS = 30 * 60 * 1000
+const DEFAULT_TIMEOUT_MS = 0
 
 export async function run(options: RunOptions): Promise<number> {
   const {
@@ -18,10 +18,15 @@ export async function run(options: RunOptions): Promise<number> {
   console.log(pc.cyan("Starting opencode server..."))
 
   const abortController = new AbortController()
-  const timeoutId = setTimeout(() => {
-    console.log(pc.yellow("\nTimeout reached. Aborting..."))
-    abortController.abort()
-  }, timeout)
+  let timeoutId: ReturnType<typeof setTimeout> | null = null
+
+  // timeout=0 means no timeout (run until completion)
+  if (timeout > 0) {
+    timeoutId = setTimeout(() => {
+      console.log(pc.yellow("\nTimeout reached. Aborting..."))
+      abortController.abort()
+    }, timeout)
+  }
 
   try {
     const { client, server } = await createOpencode({
@@ -29,7 +34,7 @@ export async function run(options: RunOptions): Promise<number> {
     })
 
     const cleanup = () => {
-      clearTimeout(timeoutId)
+      if (timeoutId) clearTimeout(timeoutId)
       server.close()
     }
 
@@ -82,6 +87,16 @@ export async function run(options: RunOptions): Promise<number> {
           continue
         }
 
+        // Check if session errored - exit with failure if so
+        if (eventState.mainSessionError) {
+          console.error(pc.red(`\n\nSession ended with error: ${eventState.lastError}`))
+          console.error(pc.yellow("Check if todos were completed before the error."))
+          abortController.abort()
+          await eventProcessor.catch(() => {})
+          cleanup()
+          return 1
+        }
+
         const shouldExit = await checkCompletionConditions(ctx)
         if (shouldExit) {
           console.log(pc.green("\n\nAll tasks completed."))
@@ -100,7 +115,7 @@ export async function run(options: RunOptions): Promise<number> {
       throw err
     }
   } catch (err) {
-    clearTimeout(timeoutId)
+    if (timeoutId) clearTimeout(timeoutId)
     if (err instanceof Error && err.name === "AbortError") {
       return 130
     }

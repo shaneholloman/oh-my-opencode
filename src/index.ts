@@ -50,7 +50,6 @@ import { createBuiltinMcps } from "./mcp";
 import { OhMyOpenCodeConfigSchema, type OhMyOpenCodeConfig, type HookName } from "./config";
 import { log, deepMerge, getUserConfigDir, addConfigLoadError } from "./shared";
 import { PLAN_SYSTEM_PROMPT, PLAN_PERMISSION } from "./agents/plan-prompt";
-import { BUILD_SYSTEM_PROMPT, BUILD_PERMISSION } from "./agents/build-prompt";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -117,7 +116,7 @@ function migrateConfigFile(configPath: string, rawConfig: Record<string, unknown
   return needsWrite;
 }
 
-function loadConfigFromPath(configPath: string): OhMyOpenCodeConfig | null {
+function loadConfigFromPath(configPath: string, ctx: any): OhMyOpenCodeConfig | null {
   try {
     if (fs.existsSync(configPath)) {
       const content = fs.readFileSync(configPath, "utf-8");
@@ -131,6 +130,20 @@ function loadConfigFromPath(configPath: string): OhMyOpenCodeConfig | null {
         const errorMsg = result.error.issues.map(i => `${i.path.join(".")}: ${i.message}`).join(", ");
         log(`Config validation error in ${configPath}:`, result.error.issues);
         addConfigLoadError({ path: configPath, error: `Validation error: ${errorMsg}` });
+        
+        const errorList = result.error.issues
+          .map(issue => `• ${issue.path.join(".")}: ${issue.message}`)
+          .join("\n");
+        
+        ctx.client.tui.showToast({
+          body: {
+            title: "❌ OhMyOpenCode: Config Validation Failed",
+            message: `Failed to load ${configPath}\n\nValidation errors:\n${errorList}\n\nConfig will be ignored. Please fix the errors above.`,
+            variant: "error" as const,
+            duration: 10000,
+          },
+        }).catch(() => {});
+        
         return null;
       }
 
@@ -141,6 +154,19 @@ function loadConfigFromPath(configPath: string): OhMyOpenCodeConfig | null {
     const errorMsg = err instanceof Error ? err.message : String(err);
     log(`Error loading config from ${configPath}:`, err);
     addConfigLoadError({ path: configPath, error: errorMsg });
+    
+    const hint = err instanceof SyntaxError
+      ? "\n\nHint: Check for syntax errors in your JSON file (missing commas, quotes, brackets, etc.)"
+      : "";
+    
+    ctx.client.tui.showToast({
+      body: {
+        title: "❌ OhMyOpenCode: Config Load Failed",
+        message: `Failed to load ${configPath}\n\nError: ${errorMsg}${hint}\n\nConfig will be ignored. Please fix the error above.`,
+        variant: "error" as const,
+        duration: 10000,
+      },
+    }).catch(() => {});
   }
   return null;
 }
@@ -175,7 +201,7 @@ function mergeConfigs(
   };
 }
 
-function loadPluginConfig(directory: string): OhMyOpenCodeConfig {
+function loadPluginConfig(directory: string, ctx: any): OhMyOpenCodeConfig {
   // User-level config path (OS-specific)
   const userConfigPath = path.join(
     getUserConfigDir(),
@@ -191,10 +217,10 @@ function loadPluginConfig(directory: string): OhMyOpenCodeConfig {
   );
 
   // Load user config first (base)
-  let config: OhMyOpenCodeConfig = loadConfigFromPath(userConfigPath) ?? {};
+  let config: OhMyOpenCodeConfig = loadConfigFromPath(userConfigPath, ctx) ?? {};
 
   // Override with project config
-  const projectConfig = loadConfigFromPath(projectConfigPath);
+  const projectConfig = loadConfigFromPath(projectConfigPath, ctx);
   if (projectConfig) {
     config = mergeConfigs(config, projectConfig);
   }
@@ -210,7 +236,7 @@ function loadPluginConfig(directory: string): OhMyOpenCodeConfig {
 }
 
 const OhMyOpenCodePlugin: Plugin = async (ctx) => {
-  const pluginConfig = loadPluginConfig(ctx.directory);
+  const pluginConfig = loadPluginConfig(ctx.directory, ctx);
   const disabledHooks = new Set(pluginConfig.disabled_hooks ?? []);
   const isHookEnabled = (hookName: HookName) => !disabledHooks.has(hookName);
 
@@ -380,9 +406,8 @@ const OhMyOpenCodePlugin: Plugin = async (ctx) => {
       const projectAgents = (pluginConfig.claude_code?.agents ?? true) ? loadProjectAgents() : {};
 
       const isSisyphusEnabled = pluginConfig.sisyphus_agent?.disabled !== true;
-      const builderEnabled = pluginConfig.sisyphus_agent?.builder_enabled ?? false;
+      const builderEnabled = pluginConfig.sisyphus_agent?.default_builder_enabled ?? false;
       const plannerEnabled = pluginConfig.sisyphus_agent?.planner_enabled ?? true;
-      const replaceBuild = pluginConfig.sisyphus_agent?.replace_build ?? true;
       const replacePlan = pluginConfig.sisyphus_agent?.replace_plan ?? true;
 
       if (isSisyphusEnabled && builtinAgents.Sisyphus) {
@@ -396,18 +421,15 @@ const OhMyOpenCodePlugin: Plugin = async (ctx) => {
 
         if (builderEnabled) {
           const { name: _buildName, ...buildConfigWithoutName } = config.agent?.build ?? {};
-          const builderSisyphusOverride = pluginConfig.agents?.["Builder-Sisyphus"];
-          const builderSisyphusBase = {
+          const openCodeBuilderOverride = pluginConfig.agents?.["OpenCode-Builder"];
+          const openCodeBuilderBase = {
             ...buildConfigWithoutName,
-            prompt: BUILD_SYSTEM_PROMPT,
-            permission: BUILD_PERMISSION,
-            description: `${config.agent?.build?.description ?? "Build agent"} (OhMyOpenCode version)`,
-            color: config.agent?.build?.color ?? "#32CD32",
+            description: `${config.agent?.build?.description ?? "Build agent"} (OpenCode default)`,
           };
 
-          agentConfig["Builder-Sisyphus"] = builderSisyphusOverride
-            ? { ...builderSisyphusBase, ...builderSisyphusOverride }
-            : builderSisyphusBase;
+          agentConfig["OpenCode-Builder"] = openCodeBuilderOverride
+            ? { ...openCodeBuilderBase, ...openCodeBuilderOverride }
+            : openCodeBuilderBase;
         }
 
         if (plannerEnabled) {
@@ -426,13 +448,24 @@ const OhMyOpenCodePlugin: Plugin = async (ctx) => {
             : plannerSisyphusBase;
         }
 
+        // Filter out build/plan from config.agent - they'll be re-added as subagents if replaced
+        const filteredConfigAgents = config.agent ? 
+          Object.fromEntries(
+            Object.entries(config.agent).filter(([key]) => {
+              if (key === "build") return false;
+              if (key === "plan" && replacePlan) return false;
+              return true;
+            })
+          ) : {};
+
         config.agent = {
           ...agentConfig,
           ...Object.fromEntries(Object.entries(builtinAgents).filter(([k]) => k !== "Sisyphus")),
           ...userAgents,
           ...projectAgents,
-          ...config.agent,
-          ...(replaceBuild ? { build: { ...config.agent?.build, mode: "subagent" } } : {}),
+          ...filteredConfigAgents,  // Filtered config agents (excludes build/plan if replaced)
+          // Demote build/plan to subagent mode when replaced
+          build: { ...config.agent?.build, mode: "subagent" },
           ...(replacePlan ? { plan: { ...config.agent?.plan, mode: "subagent" } } : {}),
         };
       } else {

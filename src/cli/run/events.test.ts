@@ -16,13 +16,15 @@ async function* toAsyncIterable<T>(items: T[]): AsyncIterable<T> {
 }
 
 describe("createEventState", () => {
-  it("creates initial state with mainSessionIdle false and empty lastOutput", () => {
+  it("creates initial state with correct defaults", () => {
     // #given / #when
     const state = createEventState()
 
     // #then
     expect(state.mainSessionIdle).toBe(false)
     expect(state.lastOutput).toBe("")
+    expect(state.lastPartText).toBe("")
+    expect(state.currentTool).toBe(null)
   })
 })
 
@@ -37,7 +39,7 @@ describe("event handling", () => {
       properties: { sessionID: "my-session" },
     }
 
-    const events = toAsyncIterable([{ payload }])
+    const events = toAsyncIterable([payload])
     const { processEvents } = await import("./events")
 
     // #when
@@ -57,7 +59,7 @@ describe("event handling", () => {
       properties: { sessionID: "other-session" },
     }
 
-    const events = toAsyncIterable([{ payload }])
+    const events = toAsyncIterable([payload])
     const { processEvents } = await import("./events")
 
     // #when
@@ -72,7 +74,11 @@ describe("event handling", () => {
     const ctx = createMockContext("my-session")
     const state: EventState = {
       mainSessionIdle: true,
+      mainSessionError: false,
+      lastError: null,
       lastOutput: "",
+      lastPartText: "",
+      currentTool: null,
     }
 
     const payload: EventPayload = {
@@ -80,7 +86,7 @@ describe("event handling", () => {
       properties: { sessionID: "my-session", status: { type: "busy" } },
     }
 
-    const events = toAsyncIterable([{ payload }])
+    const events = toAsyncIterable([payload])
     const { processEvents } = await import("./events")
 
     // #when
